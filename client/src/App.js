@@ -1,28 +1,62 @@
-import "./App.css";
+import React, { useState } from 'react';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Home from "./pages/home.page";
+import { Player } from "./pages/player.page";
 
-function App() {
+const App = () => {
+  const [players, setPlayers] = useState([
+    {
+      id: 1,
+      username: 'user',
+      email: 'user@gmail.com',
+      password: 'Katasandi1'
+    },
+    {
+      id: 2,
+      username: 'user2',
+      email: 'user2@gmail.com',
+      password: 'Katasandi12'
+    }
+  ])
+  const [tmpPlayer, setTmpPlayer] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+
+  const onCreate = () => {
+    setPlayers([
+      ...players,
+      {
+        id: Date.now(),
+        username: tmpPlayer.username,
+        email: tmpPlayer.email,
+        password: tmpPlayer.password
+      }
+    ])
+    setTmpPlayer({
+      username: '',
+      email: '',
+      password: ''
+    })
+  }
+
+  const onDelete = (id) => (e) => {
+    const newPlayers = [...players].filter(player => player.id !== id)
+    setPlayers(newPlayers)
+  }
+
   return (
-    <div className="App">
-      <h1 className="px-3 py-3">My Contact List</h1>
-
-      <form className="px-3 py-4">
-        <div className="form-group">
-          <label htmlFor="">Name</label>
-          <input type="text" className="form-control" name="name" />
-        </div>
-        <div className="form-group mt-3">
-          <label htmlFor="">No. Telp</label>
-          <input type="text" className="form-control" name="telp" />
-        </div>
-        <div>
-          <button type="submit" className="btn btn-primary w-100 mt-3">
-            Save
-          </button>
-        </div>
-      </form>
-
-    </div>
-  );
+    <React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home players={players} onDelete={onDelete} />} />
+          <Route path="/player" element={<Player onCreate={onCreate} setTmpPlayer={setTmpPlayer} tmpPlayer={tmpPlayer} />} />
+          <Route path="invoices" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  )
 }
 
 export default App;
