@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/home.page";
+import { Edit } from "./pages/edit.page";
 import { Player } from "./pages/player.page";
 
 const App = () => {
@@ -46,13 +47,30 @@ const App = () => {
     setPlayers(newPlayers)
   }
 
+  const onEdit = (id) => {
+    setPlayers([
+      ...players,
+      {
+        username: tmpPlayer.username,
+        email: tmpPlayer.email
+      }
+    ])
+    setTmpPlayer({
+      username: '',
+      email: '',
+      password: ''
+    })
+  }
+
+
+
   return (
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home players={players} onDelete={onDelete} />} />
           <Route path="/player" element={<Player onCreate={onCreate} setTmpPlayer={setTmpPlayer} tmpPlayer={tmpPlayer} />} />
-          <Route path="invoices" element={<Home />} />
+          <Route path="/edit" element={<Edit onEdit={onEdit} setTmpPlayer={setTmpPlayer} tmpPlayer={tmpPlayer} />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
