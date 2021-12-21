@@ -1,5 +1,4 @@
 import './home.css'
-import {Button, List, Stack} from '@mui/material';
 import {PlayerItem} from '../components/player-item.component';
 import { Link } from 'react-router-dom';
 
