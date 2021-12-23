@@ -1,8 +1,10 @@
 import 'antd/dist/antd.css';
 import './App.css';
-import { Button, Table, Modal, Input } from 'antd';
+import { Button, Table, Modal, Input, Space } from 'antd';
 import { useState } from 'react';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import Highlighter from 'react-highlight-words';
 
 function App() {
   const [isEditing, setIsEditing] = useState(false)
@@ -47,7 +49,11 @@ function App() {
     {
       key: '2',
       title: 'Username',
-      dataIndex: 'username'
+      dataIndex: 'username',
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value, record) => record.username.includes(value),
+      width: '30%',
     },
     {
       key: '3',
@@ -172,5 +178,15 @@ function App() {
     </div>
   );
 }
+
+{/* <React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/player" element={<Player />} />
+      <Route path="/edit" element={<Edit />} />
+    </Routes>
+  </BrowserRouter>
+</React.StrictMode> */}
 
 export default App;
