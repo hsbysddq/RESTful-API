@@ -1,14 +1,12 @@
 import 'antd/dist/antd.css';
 import './App.css';
-import { Button, Table, Modal, Input, Space } from 'antd';
-import { useState } from 'react';
-import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Highlighter from 'react-highlight-words';
+import React, { useState } from 'react';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
+import  Home  from './pages/home.page';
+import { Player } from './pages/player.page';
 
 function App() {
-  const [isEditing, setIsEditing] = useState(false)
-  const [editingPlayer, setEditingPlayer] = useState(null)
   const [players, setPlayers] = useState([
     {
       id: 1,
@@ -40,153 +38,19 @@ function App() {
     },
   ])
 
-  const columns = [
-    {
-      key: '1',
-      title: 'ID',
-      dataIndex: 'id'
-    },
-    {
-      key: '2',
-      title: 'Username',
-      dataIndex: 'username',
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value, record) => record.username.includes(value),
-      width: '30%',
-    },
-    {
-      key: '3',
-      title: 'Email',
-      dataIndex: 'email'
-    },
-    {
-      key: '4',
-      title: 'Experience',
-      dataIndex: 'experience'
-    },
-    {
-      key: '5',
-      title: 'Level',
-      dataIndex: 'level'
-    },
-    {
-      key: '6',
-      title: 'Actions',
-      render: (record) => {
-        return (
-        <>
-          <EditOutlined 
-            onClick={ () => {
-              onEditPlayer(record);
-            }}
-          />
-
-          <DeleteOutlined 
-            onClick={ () => {
-              onDeletePlayer(record)
-            }}
-            style={{ color: "red", marginLeft: 12 }} 
-          />
-        </>
-        );
-      },
-    },
-  ];
-
-  const onDeletePlayer = (record) => {
-    Modal.confirm({
-      title: 'Are you sure, you want to delete player',
-      okText: 'Yes',
-      okType: 'danger',
-      onOk:() => {
-        setPlayers( (pre) => {
-          return pre.filter(player => player.id != record.id);
-        });
-      }
-    })
-    
-  };
-
-  const onEditPlayer = (record) => {
-    setIsEditing(true);
-    setEditingPlayer({...record})
-  };
-
-  const resetEditing = () => {
-    setIsEditing(false);
-    setEditingPlayer(null)
-  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Table columns={columns} dataSource={players}></Table>
-        <Modal
-          title= "Edit Player"
-          visible= {isEditing}
-          okText= "Save"
-          onCancel= { () => {
-            resetEditing()
-          }}
-          onOk= { () => {
-            setPlayers(pre => {
-              return pre.map(player => {
-                if (player.id === editingPlayer.id) {
-                  return editingPlayer;
-                } else {
-                  return player;
-                }
-              });
-            });
-            resetEditing();
-          }}
-        >
-          <Input value={editingPlayer?.username} 
-            onChange={ (e) => {
-              setEditingPlayer(pre => {
-                return { ...pre, username:e.target.value };
-              });
-            }}
-          />
-
-          <Input value={editingPlayer?.email} 
-            onChange={ (e) => {
-              setEditingPlayer(pre => {
-                return { ...pre, email:e.target.value };
-              });
-            }}
-          />
-
-          <Input value={editingPlayer?.experience} 
-            onChange={ (e) => {
-              setEditingPlayer(pre => {
-                return { ...pre, experience:e.target.value };
-              });
-            }}
-          />
-
-          <Input value={editingPlayer?.level} 
-            onChange={ (e) => {
-              setEditingPlayer(pre => {
-                return { ...pre, level:e.target.value };
-              });
-            }}
-          />
-        </Modal>
-      </header>
-    </div>
+    <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home players={players} setPlayers={setPlayers} />} />
+        <Route path="/player" element={<Player />} />
+      </Routes>
+    </BrowserRouter>
+    </React.StrictMode>
   );
 }
 
-{/* <React.StrictMode>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/player" element={<Player />} />
-      <Route path="/edit" element={<Edit />} />
-    </Routes>
-  </BrowserRouter>
-</React.StrictMode> */}
+
 
 export default App;
