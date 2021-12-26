@@ -1,6 +1,5 @@
 import { Button, Form, Input, InputNumber } from 'antd';
 import { Link } from 'react-router-dom';
-import './player.css'
 
 function Player (props) {
 
@@ -39,9 +38,6 @@ function Player (props) {
             email: '${label} is not a valid email!',
             number: '${label} is not a valid number!',
         },
-        number: {
-            range: '${label} must be between ${min} and ${max}',
-        },
     };
 
     const onFinish = (values) => {
@@ -51,7 +47,9 @@ function Player (props) {
 
 
     return (
-        <div className='Wrapper'>
+        <div className="App">
+            <header className="App-header">
+            <h3 style={{ marginBottom: 35 }} > Create Player </h3>
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item
                     label="Username"
@@ -90,16 +88,9 @@ function Player (props) {
                 <Form.Item
                     label="Experience"
                     name="experience"
-                    rules={[
-                    {
-                        type: 'number',
-                        min: 0,
-                        max: 99,
-                    },
-                    ]}
                     
                 >
-                    <InputNumber
+                    <Input
                     onChange={(e) => props.setTmpPlayer({
                         ...props.tmpPlayer,
                         experience: e.target.value
@@ -110,15 +101,8 @@ function Player (props) {
                 <Form.Item
                     label="Level"
                     name="level"
-                    rules={[
-                    {
-                        type: 'number',
-                        min: 0,
-                        max: 99,
-                    },
-                    ]}
                 >
-                    <InputNumber
+                    <Input
                     onChange={(e) => props.setTmpPlayer({
                         ...props.tmpPlayer,
                         level: e.target.value
@@ -139,6 +123,7 @@ function Player (props) {
                     </Button>
                 </Form.Item>
             </Form>
+            </header>
         </div>
     );
 };

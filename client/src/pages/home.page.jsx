@@ -31,6 +31,49 @@ function Home(props) {
             filterMode: 'tree',
             filterSearch: true,
             onFilter: (value, record) => record.username.includes(value),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+                return (
+                    <>
+                        <Input
+                        autoFocus
+                        placeholder='search username in here'
+                        value={selectedKeys[0]}
+                        onChange={(e) => {
+                            setSelectedKeys(e.target.value ? [e.target.value] : []);
+                            confirm({ closeDropdown: false });
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                        ></Input>
+                        <Button
+                        onClick={() => {
+                            confirm();
+                        }}
+                        type='primary'
+                        >
+                        Search
+                        </Button>
+                        <Button
+                        onClick={() => {
+                        clearFilters();
+                        }}
+                        type='danger'
+                        >
+                        Reset
+                        </Button>
+                    </>
+                );
+                },
+                filterIcon: () => {
+                    return <SearchOutlined />;
+                },
+                onFilter: (value, record) =>{
+                    return record.username.toLowerCase().includes(value.toLowerCase());
+                },
         },
         {
             key: '3',
@@ -83,12 +126,98 @@ function Home(props) {
         {
             key: '4',
             title: 'Experience',
-            dataIndex: 'experience'
+            dataIndex: 'experience',
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+                return (
+                    <>
+                        <Input
+                        autoFocus
+                        placeholder='search experience in here'
+                        value={selectedKeys[0]}
+                        onChange={(e) => {
+                            setSelectedKeys(e.target.value ? [e.target.value] : []);
+                            confirm({ closeDropdown: false });
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                        ></Input>
+                        <Button
+                        onClick={() => {
+                            confirm();
+                        }}
+                        type='primary'
+                        >
+                        Search
+                        </Button>
+                        <Button
+                        onClick={() => {
+                        clearFilters();
+                        }}
+                        type='danger'
+                        >
+                        Reset
+                        </Button>
+                    </>
+                );
+                },
+                filterIcon: () => {
+                    return <SearchOutlined />;
+                },
+                onFilter: (value, record) =>{
+                    return record.experience.toLowerCase().includes(value.toLowerCase());
+                },
         },
         {
             key: '5',
             title: 'Level',
-            dataIndex: 'level'
+            dataIndex: 'level',
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+                return (
+                    <>
+                        <Input
+                        autoFocus
+                        placeholder='search level in here'
+                        value={selectedKeys[0]}
+                        onChange={(e) => {
+                            setSelectedKeys(e.target.value ? [e.target.value] : []);
+                            confirm({ closeDropdown: false });
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                        ></Input>
+                        <Button
+                        onClick={() => {
+                            confirm();
+                        }}
+                        type='primary'
+                        >
+                        Search
+                        </Button>
+                        <Button
+                        onClick={() => {
+                        clearFilters();
+                        }}
+                        type='danger'
+                        >
+                        Reset
+                        </Button>
+                    </>
+                );
+                },
+                filterIcon: () => {
+                    return <SearchOutlined />;
+                },
+                onFilter: (value, record) =>{
+                    return record.level.toLowerCase().includes(value.toLowerCase());
+                },
         },
         {
             key: '6',
@@ -131,6 +260,7 @@ function Home(props) {
     return (
         <div className="App">
             <header className="App-header">
+                <h2 style={{ marginBottom: 20 }} > List data player</h2>
                 <Button type='primary' style={{ marginRight: 440, marginBottom: 15 }}>
                 <Link
                     style={{  textDecoration: 'none', color: 'fff' }}
