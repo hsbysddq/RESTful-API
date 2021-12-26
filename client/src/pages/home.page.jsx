@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import { Button, Table, Modal, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function Home(props) {
     const [isEditing, setIsEditing] = useState(false)
@@ -131,9 +131,9 @@ function Home(props) {
     return (
         <div className="App">
             <header className="App-header">
-                <Button size="small" variant="contained" className="submit-container">
+                <Button type='primary' style={{ marginRight: 440, marginBottom: 15 }}>
                 <Link
-                    style={{  textDecoration: 'none', color: '#fff' }}
+                    style={{  textDecoration: 'none', color: 'fff' }}
                     to={`/player`}
                 >
                     Create player

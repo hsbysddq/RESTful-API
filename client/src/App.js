@@ -45,13 +45,19 @@ function App() {
     },
   ])
 
+  const [tmpPlayer, setTmpPlayer] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+
 
   return (
     <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home players={players} setPlayers={setPlayers} />} />
-        <Route path="/player" element={<Player players={players} setPlayers={setPlayers} />} />
+        <Route path="/player" element={<Player players={players} setPlayers={setPlayers} tmpPlayer={tmpPlayer} setTmpPlayer={setTmpPlayer}/>} />
       </Routes>
     </BrowserRouter>
     </React.StrictMode>
