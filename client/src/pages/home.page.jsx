@@ -2,6 +2,7 @@ import 'antd/dist/antd.css';
 import { Button, Table, Modal, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 
 function Home(props) {
     const [isEditing, setIsEditing] = useState(false)
@@ -130,6 +131,14 @@ function Home(props) {
     return (
         <div className="App">
             <header className="App-header">
+                <Button size="small" variant="contained" className="submit-container">
+                <Link
+                    style={{  textDecoration: 'none', color: '#fff' }}
+                    to={`/player`}
+                >
+                    Create player
+                </Link>
+                </Button>
                 <Table
                 columns={columns}
                 dataSource={props.players}
